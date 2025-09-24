@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio of Oswa Brian, a skilled web developer offering AI-powered, responsive web solutions.">
+    <meta name="keywords" content="Oswa Brian, web developer, AI, responsive design">
+    <meta name="author" content="Oswa Brian">
+    <meta name="robots" content="index, follow">
+    <title>Oswa Brian - Portfolio</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --text-color: #333;
+            --bg-color: #f5f5f5;
+            --card-bg: #fff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"], [data-theme="auto"] [prefers-color-scheme="dark"] {
+            --primary-color: #8ab4f8;
+            --text-color: #e8ecef;
+            --bg-color: #1c2526;
+            --card-bg: #2d3b3e;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('hero-bg.jpg') center/cover;
+            color: #fff;
+            text-align: center;
+            padding: 80px 15px;
+        }
+
+        header h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #1557b0;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #fff;
+            z-index: 1001;
+        }
+
+        nav {
+            background-color: var(--card-bg);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        nav a:hover, nav a:focus {
+            color: var(--primary-color);
+        }
+
+        section {
+            padding: 50px 15px;
+        }
+
+        section h2 {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .about {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .about img {
+            max-width: 150px;
+            border-radius: 50%;
+            box-shadow: var(--shadow);
+        }
+
+        .services-grid, .portfolio-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .service-card, .portfolio-item {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .portfolio-item img, .portfolio-item canvas {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .contact-info {
+            text-align: center;
+        }
+
+        .contact-info a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background-color: var(--card-bg);
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        #three-js-canvas {
+            width: 100%;
+            height: clamp(200px, 40vw, 300px);
+            border-radius: 10px;
+        }
+
+        @media (min-width: 768px) {
+            header {
+                padding: 100px 20px;
+            }
+
+            .services-grid, .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about {
+                flex-direction: row;
+                text-align: left;
+            }
+
+            .about img {
+                max-width: 200px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .services-grid, .portfolio-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        a:focus, button:focus {
+            outline: 3px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .no-js .fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="no-js">
+    <noscript>
+        <div style="text-align: center; padding: 20px; background: #ffebee;">
+            <p>JavaScript is disabled. Some features, like the 3D portfolio and theme toggle, may not work.</p>
+        </div>
+    </noscript>
+
+    <button class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+
+    <header role="banner">
+        <div class="container">
+            <h1>Oswa Brian</h1>
+            <p>Web Developer | AI-Powered & Responsive Solutions</p>
+            <a href="#contact" class="btn">Get in Touch</a>
+        </div>
+    </header>
+
+    <nav role="navigation">
+        <div class="container">
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="about" class="about fade-in" role="region" aria-labelledby="about-heading">
+        <div class="container">
+            <img src="profile.jpg" alt="Oswa Brian's profile picture" loading="lazy">
+            <div>
+                <h2 id="about-heading">About Me</h2>
+                <p>I'm Oswa Brian, a web developer specializing in AI-driven, responsive websites. I use modern technologies like Three.js and headless CMS for dynamic user experiences.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="fade-in" role="region" aria-labelledby="services-heading">
+        <div class="container">
+            <h2 id="services-heading">Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>AI-Powered Web Development</h3>
+                    <p>Integrate AI chatbots and personalized content for enhanced user engagement.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Mobile-First Design</h3>
+                    <p>Build responsive, fast-loading websites optimized for all devices.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Immersive 3D Features</h3>
+                    <p>Create interactive 3D showcases using Three.js.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="fade-in" role="region" aria-labelledby="portfolio-heading">
+        <div class="container">
+            <h2 id="portfolio-heading">Portfolio</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item" itemscope itemtype="https://schema.org/CreativeWork">
+                    <canvas id="three-js-canvas" aria-label="3D portfolio showcase"></canvas>
+                    <h3 itemprop="name">3D Portfolio Showcase</h3>
+                    <p itemprop="description">Interactive 3D model built with Three.js.</p>
+                    <p class="fallback" hidden>No 3D support? <a href="project1.jpg">View static image</a>.</p>
+                </div>
+                <div class="portfolio-item" itemscope itemtype="https://schema.org/CreativeWork">
+                    <img src="project2.jpg" alt="Project Two portfolio website" loading="lazy" itemprop="image">
+                    <h3 itemprop="name">Project Two</h3>
+                    <p itemprop="description">Portfolio site with dark mode and accessibility.</p>
+                </div>
+                <div class="portfolio-item" itemscope itemtype="https://schema.org/CreativeWork">
+                    <img src="project3.jpg" alt="Project Three web app" loading="lazy" itemprop="image">
+                    <h3 itemprop="name">Project Three</h3>
+                    <p itemprop="description">Web app with interactive features.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-info fade-in" role="region" aria-labelledby="contact-heading">
+        <div class="container">
+            <h2 id="contact-heading">Contact Me</h2>
+            <p>Email: <a href="mailto:oswabrian00@gmail.com">oswabrian00@gmail.com</a></p>
+            <p>Phone: <a href="tel:+254795315924">+254 795 315924</a></p>
+            <p>WhatsApp: <a href="https://wa.me/+254795315924" target="_blank" rel="noopener">+254 795 315924</a></p>
+            <p>Let's create something extraordinary!</p>
+        </div>
+    </section>
+
+    <footer role="contentinfo">
+        <div class="container">
+            <p>&copy; 2025 Oswa Brian. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.body.classList.remove('no-js');
+
+        // Dark Mode Toggle
+        const toggleTheme = () => {
+            const body = document.body;
+            const newTheme = body.dataset.theme === 'dark' ? 'light' : 'dark';
+            body.dataset.theme = newTheme;
+            localStorage.setItem('theme', newTheme);
+            document.querySelector('.theme-toggle').textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        };
+
+        // Apply saved or preferred theme
+        const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.body.dataset.theme = savedTheme;
+        document.querySelector('.theme-toggle').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+        document.querySelector('.theme-toggle').addEventListener('click', toggleTheme);
+
+        // Scroll Animation
+        const faders = document.querySelectorAll('.fade-in');
+        const appearOptions = { threshold: 0.2, rootMargin: '0px 0px -50px 0px' };
+        const appearOnScroll = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, appearOptions);
+        faders.forEach(fader => appearOnScroll.observe(fader));
+
+        // Three.js Setup
+        const initThreeJs = () => {
+            try {
+                const canvas = document.getElementById('three-js-canvas');
+                if (!canvas || !window.THREE) throw new Error('Three.js or canvas not available');
+
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+                const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+
+                const updateCanvasSize = () => {
+                    const width = canvas.clientWidth;
+                    const height = Math.min(Math.max(200, window.innerWidth * 0.4), 300);
+                    renderer.setSize(width, height);
+                    camera.aspect = width / height;
+                    camera.updateProjectionMatrix();
+                };
+                updateCanvasSize();
+
+                const geometry = new THREE.BoxGeometry(1, 1, 1);
+                const material = new THREE.MeshBasicMaterial({ color: 0x1a73e8 });
+                const cube = new THREE.Mesh(geometry, material);
+                scene.add(cube);
+                camera.position.z = 5;
+
+                const animate = () => {
+                    requestAnimationFrame(animate);
+                    cube.rotation.x += 0.01;
+                    cube.rotation.y += 0.01;
+                    renderer.render(scene, camera);
+                };
+                animate();
+
+                window.addEventListener('resize', updateCanvasSize);
+            } catch (error) {
+                console.error('Three.js initialization failed:', error);
+                document.querySelector('.portfolio-item .fallback').hidden = false;
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', initThreeJs);
+    </script>
+</body>
+</html>
